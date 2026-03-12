@@ -6,7 +6,7 @@ import { CategoriasListaComponent } from './pages/categorias-lista/categorias-li
 
 export const routes: Routes = [
   { path: 'dashboard-vendas', component: DashboardVendasComponent },
-  { path: 'categorias', component: CategoriasListaComponent},
+  { path: 'categorias-lista', component: CategoriasListaComponent},
   { path: 'crud-produto', component: CategoriaCrudComponent },
   { path: 'configuracoes', component: Configuracoes },
   { path: '', redirectTo: '/dashboard-vendas', pathMatch: 'full' }
