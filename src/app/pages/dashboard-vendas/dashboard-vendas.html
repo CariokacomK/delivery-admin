@@ -1,0 +1,62 @@
+<div class="container mt-5">
+  <h2 class="mb-4">Vendas do Dia</h2>
+
+  <div class="row mb-4">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Total</h5>
+          <h3 class="text-success">{{ formatarValor(calcularTotal()) }}</h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Quantidade</h5>
+          <h3 class="text-primary">{{ calcularQuantidade() }}</h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Ticket Médio</h5>
+          <h3 class="text-info">{{ formatarValor(calcularTicketMedio()) }}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="card">
+    <div class="card-header bg-dark text-white">
+      <h5 class="mb-0">Tabela de Vendas</h5>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Categoria</th>
+            <th>Preço</th>
+            <th>Qtd</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="vendas.length === 0">
+            <td colspan="5" class="text-center text-muted">Sem vendas</td>
+          </tr>
+          <tr *ngFor="let venda of vendas">
+            <td>{{ venda.nomeProduto }}</td>
+            <td>{{ venda.categoria }}</td>
+            <td>{{ formatarValor(venda.preco) }}</td>
+            <td>{{ venda.quantidade }}</td>
+            <td class="fw-bold text-success">{{ formatarValor(venda.total) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
