@@ -11,23 +11,11 @@ import { VendaService, Venda } from '../../services/venda';
 })
 export class DashboardVendasComponent implements OnInit {
   vendas: Venda[] = [];
-  totalVendas: number = 0;
-  quantidadeProdutos: number = 0;
-  ticketMedio: number = 0;
 
   constructor(private vendaService: VendaService) {}
 
   ngOnInit(): void {
     this.vendas = this.vendaService.obterVendasDoDia();
-    this.calcularResumo();
-  }
-
-  calcularResumo(): void {
-    if (this.vendas.length > 0) {
-      this.totalVendas = this.vendas.reduce((total, venda) => total + venda.total, 0);
-      this.quantidadeProdutos = this.vendas.reduce((total, venda) => total + venda.quantidade, 0);
-      this.ticketMedio = this.totalVendas / this.vendas.length;
-    }
   }
 
   formatarValor(valor: number): string {
@@ -35,5 +23,18 @@ export class DashboardVendasComponent implements OnInit {
       style: 'currency',
       currency: 'BRL'
     }).format(valor);
+  }
+
+  calcularTotal(): number {
+    return this.vendas.reduce((total, venda) => total + venda.total, 0);
+  }
+
+  calcularQuantidade(): number {
+    return this.vendas.reduce((total, venda) => total + venda.quantidade, 0);
+  }
+
+  calcularTicketMedio(): number {
+    if (this.vendas.length === 0) return 0;
+    return this.calcularTotal() / this.vendas.length;
   }
 }
