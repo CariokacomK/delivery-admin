@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router'; 
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-categorias-lista',
   standalone: true,
@@ -18,7 +18,7 @@ export class CategoriasListaComponent {
 
   constructor(private router: Router) {}
 
-  cadastrarNovaCategoria() {
+  cadastrarNovoProduto() {
     this.router.navigate(['/crud-produto']);
   }
 }
