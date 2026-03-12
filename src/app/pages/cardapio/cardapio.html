@@ -1,0 +1,31 @@
+<div class="container mt-5">
+  <h1>Menu</h1>
+
+  <div class="mb-3">
+    <button 
+      *ngFor="let categoria of categorias" 
+      class="btn btn-sm me-2"
+      [ngClass]="categoriaSelecionada === categoria ? 'btn-primary' : 'btn-outline-primary'"
+      (click)="selecionarCategoria(categoria)">
+      {{ categoria }}
+    </button>
+  </div>
+
+  <div>
+    <div 
+      *ngFor="let produto of filtrarProdutos()"
+      class="border p-3 mb-3">
+      
+      <h5>{{ produto.nome }}</h5>
+      <p class="text-muted">{{ produto.categoria }}</p>
+      <p>{{ produto.descricao }}</p>
+      <p><strong>R$ {{ produto.preco.toFixed(2) }}</strong></p>
+
+      <div>
+        <button class="btn btn-sm btn-dark" (click)="menos(produto)">−</button>
+        <span class="mx-2">{{ produto.quantidade }}</span>
+        <button class="btn btn-sm btn-dark" (click)="mais(produto)">+</button>
+      </div>
+    </div>
+  </div>
+</div>
