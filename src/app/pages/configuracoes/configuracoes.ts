@@ -1,28 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormArray } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-configuracoes',
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCardModule,
     MatSlideToggleModule,
     MatSnackBarModule,
   ],
   templateUrl: './configuracoes.html',
   styleUrl: './configuracoes.css',
 })
+
 export class Configuracoes implements OnInit {
   form!: FormGroup;
 
@@ -63,7 +56,7 @@ export class Configuracoes implements OnInit {
 
   salvar(): void {
     localStorage.setItem('configuracoes-loja', JSON.stringify(this.form.value));
-    this.snackBar.open('✅ Configurações salvas com sucesso!', 'Fechar', {
+    this.snackBar.open('Configurações salvas com sucesso!', 'Fechar', {
       duration: 3000,
       horizontalPosition: 'end',
       verticalPosition: 'top',
