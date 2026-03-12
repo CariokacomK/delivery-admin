@@ -1,0 +1,106 @@
+<div class="admin-wrapper">
+
+  <header class="admin-header">
+    <div>
+      <span class="header-tag">Painel Administrativo</span>
+      <h1>Configurações da Loja</h1>
+    </div>
+    <button mat-flat-button class="btn-salvar" (click)="salvar()">
+      Salvar alterações
+    </button>
+  </header>
+
+  <form [formGroup]="form">
+    <div class="grid-layout">
+
+      <!-- COLUNA ESQUERDA -->
+      <div class="coluna">
+
+        <div class="bloco">
+          <h2 class="bloco-titulo">História da Loja</h2>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Conte a história do restaurante</mat-label>
+            <textarea matInput formControlName="historia" rows="5"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="bloco" formGroupName="endereco">
+          <h2 class="bloco-titulo">Endereço</h2>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Rua</mat-label>
+            <input matInput formControlName="rua" />
+          </mat-form-field>
+
+          <div class="linha-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Número</mat-label>
+              <input matInput formControlName="numero" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>CEP</mat-label>
+              <input matInput formControlName="cep" />
+            </mat-form-field>
+          </div>
+
+          <div class="linha-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Bairro</mat-label>
+              <input matInput formControlName="bairro" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Cidade</mat-label>
+              <input matInput formControlName="cidade" />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="bloco">
+          <h2 class="bloco-titulo">Taxa de Entrega</h2>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Valor em R$</mat-label>
+            <input matInput type="number" formControlName="taxaEntrega" min="0" />
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <div class="coluna">
+        <div class="bloco">
+          <h2 class="bloco-titulo">Horários de Funcionamento</h2>
+
+          <div formArrayName="horarios">
+            <div
+              *ngFor="let h of horarios.controls; let i = index"
+              [formGroupName]="i"
+              class="horario-row">
+
+              <span class="dia-nome">{{ diasSemana[i] }}</span>
+
+              <mat-slide-toggle formControlName="aberto" color="warn"></mat-slide-toggle>
+
+              <div class="horario-inputs" [class.desativado]="!h.get('aberto')?.value">
+                <mat-form-field appearance="outline" class="input-hora">
+                  <mat-label>Abre</mat-label>
+                  <input matInput type="time" formControlName="abertura" />
+                </mat-form-field>
+
+                <span class="separador">—</span>
+
+                <mat-form-field appearance="outline" class="input-hora">
+                  <mat-label>Fecha</mat-label>
+                  <input matInput type="time" formControlName="fechamento" />
+                </mat-form-field>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </form>
+
+</div>

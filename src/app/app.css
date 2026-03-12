@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap');
+
+.navbar {
+  font-family: 'DM Sans', sans-serif;
+  background: #111 !important;
+  border-bottom: 1px solid #2a2a2a;
+  padding: 1rem 0;
+}
+
+.navbar-brand {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.3rem !important;
+  color: #f0ece6 !important;
+  letter-spacing: 0.5px;
+}
+
+.nav-link {
+  font-size: 0.85rem !important;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #888 !important;
+  margin-left: 0.5rem;
+  padding: 0.4rem 0.75rem !important;
+  border-radius: 6px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.nav-link:hover {
+  color: #f0ece6 !important;
+  background: #1e1e1e;
+}
+
+.nav-link.text-warning {
+  color: #e8a87c !important;
+  background: rgba(232, 168, 124, 0.1);
+}
+
+footer {
+  font-family: 'DM Sans', sans-serif;
+  background: #111 !important;
+  border-top: 1px solid #2a2a2a !important;
+  color: #555 !important;
+}
+
+footer .text-muted {
+  color: #555 !important;
+  font-size: 0.8rem;
+}
