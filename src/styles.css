@@ -1,1 +1,41 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --delivery-primary: #FF5722;
+  --delivery-primary-hover: #E64A19;
+  --delivery-dark: #2B2B2B;
+  --delivery-bg: #F8F9FA;
+}
+
+body {
+  background-color: var(--delivery-bg);
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
+.card {
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+}
+
+.btn-primary {
+  background-color: var(--delivery-primary) !important;
+  border-color: var(--delivery-primary) !important;
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  padding: 8px 20px !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--delivery-primary-hover) !important;
+  border-color: var(--delivery-primary-hover) !important;
+  transform: translateY(-2px);
+}
+
+.bg-delivery-dark {
+  background-color: var(--delivery-dark);
+}
+
+.main-content {
+  min-height: 75vh;
+}
