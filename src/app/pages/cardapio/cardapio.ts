@@ -14,21 +14,6 @@ export class CardapioComponent implements OnInit {
   categorias: string[] = [];
   categoriaSelecionada: string = 'Todos';
 
-  iconesDosProdutos: any = {
-    'Duplo Salada': '🍔',
-    'Duplo com Ovo': '🍳',
-    'Duplo Cheddar': '🧀',
-    'Duplo Bacon': '🥓',
-    'Pizza Calabresa': '🍕',
-    'Coca-Cola 2L': '🥤',
-    'Fanta Uva': '🍇',
-    'Guaraná 2L': '🥤',
-    'Suco Natural': '🧃',
-    'Sorvete de Baunilha': '🍦',
-    'Pudim de Leite': '🍮',
-    'Brownie com Sorvete': '🍫'
-  };
-
   constructor(private produtoService: ProdutoService) {}
 
   ngOnInit(): void {
@@ -40,7 +25,7 @@ export class CardapioComponent implements OnInit {
     
     this.produtos = todosOsProdutos.map(p => {
       p.quantidade = 1;
-      p.icone = this.iconesDosProdutos[p.nome] || '🍽️';
+      p.icone = p.icone || '🍽️'; 
       return p;
     });
     
