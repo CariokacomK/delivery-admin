@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProdutoService } from './produto';
+import { ProdutoService } from '../../services/produto';
 
 @Component({
   selector: 'app-cardapio',
