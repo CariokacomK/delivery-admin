@@ -4,6 +4,7 @@ import { CardapioComponent } from './pages/cardapio/cardapio';
 import { Configuracoes } from './pages/configuracoes/configuracoes';
 import { DashboardVendasComponent } from './pages/dashboard-vendas/dashboard-vendas';
 import { CategoriasListaComponent } from './pages/categorias-lista/categorias-lista.component';
+import { FuncionariosComponent } from './pages/funcionarios/funcionarios';
 
 export const routes: Routes = [
   { path: 'dashboard-vendas', component: DashboardVendasComponent },
@@ -11,5 +12,7 @@ export const routes: Routes = [
   { path: 'crud-produto', component: CategoriaCrudComponent },
   { path: 'cardapio', component: CardapioComponent },
   { path: 'configuracoes', component: Configuracoes },
+  { path: 'funcionarios', component: FuncionariosComponent },
   { path: '', redirectTo: '/cardapio', pathMatch: 'full' }
+
 ];
