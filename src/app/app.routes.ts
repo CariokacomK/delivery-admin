@@ -1,15 +1,15 @@
 import { Routes } from '@angular/router';
-import { CategoriaCrudComponent } from './pages/categoria-crud/categoria-crud';
 import { CardapioComponent } from './pages/cardapio/cardapio';
 import { Configuracoes } from './pages/configuracoes/configuracoes';
 import { DashboardVendasComponent } from './pages/dashboard-vendas/dashboard-vendas';
-import { CategoriasListaComponent } from './pages/categorias-lista/categorias-lista.component';
+import { CategoriasComponent } from './pages/categorias/categorias';
 import { FuncionariosComponent } from './pages/funcionarios/funcionarios';
 
 export const routes: Routes = [
   { path: 'dashboard-vendas', component: DashboardVendasComponent },
-  { path: 'categorias-lista', component: CategoriasListaComponent},
-  { path: 'crud-produto', component: CategoriaCrudComponent },
+  { path: 'categorias', component: CategoriasComponent },
+  { path: 'categorias-lista', redirectTo: 'categorias', pathMatch: 'full' },
+  { path: 'crud-produto', redirectTo: 'categorias', pathMatch: 'full' },
   { path: 'cardapio', component: CardapioComponent },
   { path: 'configuracoes', component: Configuracoes },
   { path: 'funcionarios', component: FuncionariosComponent },

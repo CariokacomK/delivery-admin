@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { inject, PLATFORM_ID } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
@@ -17,6 +18,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 })
 
 export class Configuracoes implements OnInit {
+  private readonly platformId = inject(PLATFORM_ID);
   form!: FormGroup;
 
   diasSemana = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'];
@@ -44,9 +46,11 @@ export class Configuracoes implements OnInit {
       )
     });
 
-    const salvo = localStorage.getItem('configuracoes-loja');
-    if (salvo) {
-      this.form.patchValue(JSON.parse(salvo));
+    if (isPlatformBrowser(this.platformId)) {
+      const salvo = localStorage.getItem('configuracoes-loja');
+      if (salvo) {
+        this.form.patchValue(JSON.parse(salvo));
+      }
     }
   }
 
@@ -55,7 +59,10 @@ export class Configuracoes implements OnInit {
   }
 
   salvar(): void {
-    localStorage.setItem('configuracoes-loja', JSON.stringify(this.form.value));
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('configuracoes-loja', JSON.stringify(this.form.value));
+    }
+
     this.snackBar.open('Configurações salvas com sucesso!', 'Fechar', {
       duration: 3000,
       horizontalPosition: 'end',
