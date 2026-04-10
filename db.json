@@ -1,0 +1,22 @@
+{
+  "categorias": [
+    {
+      "id": 1,
+      "nome": "Lanches",
+      "descricao": "Hamburgueres, porcoes e combinados principais.",
+      "icone": "🍔"
+    },
+    {
+      "id": 2,
+      "nome": "Bebidas",
+      "descricao": "Refrigerantes, sucos e outras bebidas.",
+      "icone": "🥤"
+    },
+    {
+      "id": 3,
+      "nome": "Sobremesas",
+      "descricao": "Doces, bolos e sobremesas geladas.",
+      "icone": "🍰"
+    }
+  ]
+}

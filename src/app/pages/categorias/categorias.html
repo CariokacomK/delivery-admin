@@ -1,0 +1,121 @@
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+    <div>
+      <h2 class="fw-bold mb-1">CRUD de Categorias</h2>
+      <p class="text-muted mb-0">Cadastre, edite e remova as categorias do cardapio.</p>
+    </div>
+
+    <button type="button" class="btn btn-outline-secondary" (click)="carregarCategorias()">
+      Atualizar lista
+    </button>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-4">
+      <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white">
+          <h5 class="mb-0">{{ emEdicao ? 'Editar categoria' : 'Nova categoria' }}</h5>
+        </div>
+
+        <div class="card-body">
+          <form [formGroup]="categoriaForm" (ngSubmit)="salvar()">
+            <div class="mb-3">
+              <label for="nome" class="form-label">Nome *</label>
+              <input
+                id="nome"
+                type="text"
+                class="form-control"
+                formControlName="nome"
+                [class.is-invalid]="categoriaForm.get('nome')?.invalid && categoriaForm.get('nome')?.touched"
+                placeholder="Ex: Lanches"
+              />
+              <div class="invalid-feedback">Informe um nome com pelo menos 3 caracteres.</div>
+            </div>
+
+            <div class="mb-3">
+              <label for="descricao" class="form-label">Descricao *</label>
+              <textarea
+                id="descricao"
+                rows="3"
+                class="form-control"
+                formControlName="descricao"
+                [class.is-invalid]="categoriaForm.get('descricao')?.invalid && categoriaForm.get('descricao')?.touched"
+                placeholder="Ex: Opcao principal do cardapio"
+              ></textarea>
+              <div class="invalid-feedback">Informe uma descricao com pelo menos 5 caracteres.</div>
+            </div>
+
+            <div class="mb-4">
+              <label for="icone" class="form-label">Icone *</label>
+              <input
+                id="icone"
+                type="text"
+                class="form-control"
+                formControlName="icone"
+                [class.is-invalid]="categoriaForm.get('icone')?.invalid && categoriaForm.get('icone')?.touched"
+                placeholder="Ex: 🍔"
+              />
+              <div class="form-text">Use um emoji simples para identificar a categoria.</div>
+            </div>
+
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary">
+                {{ emEdicao ? 'Salvar alteracoes' : 'Cadastrar categoria' }}
+              </button>
+              <button type="button" class="btn btn-light" (click)="cancelarEdicao()">
+                {{ emEdicao ? 'Cancelar edicao' : 'Limpar formulario' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-8">
+      <div class="alert alert-danger" *ngIf="erro">
+        {{ erro }}
+      </div>
+
+      <div class="card shadow-sm">
+        <div class="card-body p-0">
+          <div *ngIf="carregando" class="p-4 text-center text-muted">
+            Carregando categorias...
+          </div>
+
+          <div *ngIf="!carregando && categorias.length === 0" class="p-4 text-center text-muted">
+            Nenhuma categoria cadastrada no servidor fake.
+          </div>
+
+          <div *ngIf="!carregando && categorias.length > 0" class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>Icone</th>
+                  <th>Nome</th>
+                  <th>Descricao</th>
+                  <th class="text-end">Acoes</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let categoria of categorias; trackBy: trackById">
+                  <td class="fs-4">{{ categoria.icone }}</td>
+                  <td class="fw-semibold">{{ categoria.nome }}</td>
+                  <td class="text-muted">{{ categoria.descricao }}</td>
+                  <td class="text-end">
+                    <button type="button" class="btn btn-sm btn-outline-primary me-2" (click)="editar(categoria)">
+                      Editar
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-danger" (click)="excluir(categoria)">
+                      Excluir
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

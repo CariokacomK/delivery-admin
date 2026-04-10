@@ -1,0 +1,9 @@
+.table td,
+.table th {
+  vertical-align: middle;
+}
+
+.card {
+  border: 0;
+  border-radius: 1rem;
+}
