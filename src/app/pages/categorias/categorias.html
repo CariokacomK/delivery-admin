@@ -14,7 +14,7 @@
     <div class="col-lg-4">
       <div class="card shadow-sm">
         <div class="card-header bg-dark text-white">
-          <h5 class="mb-0">{{ emEdicao ? 'Editar categoria' : 'Nova categoria' }}</h5>
+          <h5 class="mb-0">{{ emEdicao() ? 'Editar categoria' : 'Nova categoria' }}</h5>
         </div>
 
         <div class="card-body">
@@ -60,10 +60,10 @@
 
             <div class="d-grid gap-2">
               <button type="submit" class="btn btn-primary">
-                {{ emEdicao ? 'Salvar alteracoes' : 'Cadastrar categoria' }}
+                {{ emEdicao() ? 'Salvar alteracoes' : 'Cadastrar categoria' }}
               </button>
               <button type="button" class="btn btn-light" (click)="cancelarEdicao()">
-                {{ emEdicao ? 'Cancelar edicao' : 'Limpar formulario' }}
+                {{ emEdicao() ? 'Cancelar edicao' : 'Limpar formulario' }}
               </button>
             </div>
           </form>
@@ -72,21 +72,21 @@
     </div>
 
     <div class="col-lg-8">
-      <div class="alert alert-danger" *ngIf="erro">
-        {{ erro }}
+      <div class="alert alert-danger" *ngIf="erro()">
+        {{ erro() }}
       </div>
 
       <div class="card shadow-sm">
         <div class="card-body p-0">
-          <div *ngIf="carregando" class="p-4 text-center text-muted">
+          <div *ngIf="carregando()" class="p-4 text-center text-muted">
             Carregando categorias...
           </div>
 
-          <div *ngIf="!carregando && categorias.length === 0" class="p-4 text-center text-muted">
+          <div *ngIf="!carregando() && categorias().length === 0" class="p-4 text-center text-muted">
             Nenhuma categoria cadastrada no servidor fake.
           </div>
 
-          <div *ngIf="!carregando && categorias.length > 0" class="table-responsive">
+          <div *ngIf="!carregando() && categorias().length > 0" class="table-responsive">
             <table class="table table-hover mb-0 align-middle">
               <thead class="table-light">
                 <tr>
@@ -98,7 +98,7 @@
               </thead>
 
               <tbody>
-                <tr *ngFor="let categoria of categorias; trackBy: trackById">
+                <tr *ngFor="let categoria of categorias(); trackBy: trackById">
                   <td class="fs-4">{{ categoria.icone }}</td>
                   <td class="fw-semibold">{{ categoria.nome }}</td>
                   <td class="text-muted">{{ categoria.descricao }}</td>
