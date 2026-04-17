@@ -1,4 +1,24 @@
 {
+  "cupons": [
+    {
+      "id": "1",
+      "codigo": "PROMO10",
+      "desconto": 10,
+      "ativo": true
+    },
+    {
+      "id": "2",
+      "codigo": "BEMVINDO20",
+      "desconto": 20,
+      "ativo": true
+    },
+    {
+      "id": "3",
+      "codigo": "ANTIGAS5",
+      "desconto": 5,
+      "ativo": false
+    }
+  ],
   "categorias": [
     {
       "nome": "Lanches",
