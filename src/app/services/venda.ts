@@ -57,6 +57,28 @@ export class VendaService {
     };
 
     vendas.push(venda);
+    this.salvarNoStorage(vendas);
+  }
+
+  removerVenda(id: string): void {
+    if (typeof localStorage === 'undefined') {
+      return;
+    }
+    const vendas = this.obterVendas().filter(v => v.id !== id);
+    this.salvarNoStorage(vendas);
+  }
+
+  atualizarVenda(vendaAtualizada: Venda): void {
+    if (typeof localStorage === 'undefined') {
+      return;
+    }
+    const vendas = this.obterVendas().map(v => 
+      v.id === vendaAtualizada.id ? vendaAtualizada : v
+    );
+    this.salvarNoStorage(vendas);
+  }
+
+  private salvarNoStorage(vendas: Venda[]): void {
     localStorage.setItem(this.STORAGE_KEY, JSON.stringify(vendas));
   }
 
