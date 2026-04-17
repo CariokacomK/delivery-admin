@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import {
   FormBuilder,
   ReactiveFormsModule,
@@ -18,10 +18,10 @@ export class CategoriasComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly categoriaService = inject(CategoriaService);
 
-  categorias: Categoria[] = [];
-  editandoId: number | null = null;
-  carregando = false;
-  erro = '';
+  categorias = signal<Categoria[]>([]);
+  editandoId = signal<number | null>(null);
+  carregando = signal(false);
+  erro = signal('');
 
   readonly categoriaForm = this.fb.group({
     nome: ['', [Validators.required, Validators.minLength(3)]],
@@ -29,26 +29,24 @@ export class CategoriasComponent implements OnInit {
     icone: ['📦', [Validators.required, Validators.maxLength(2)]]
   });
 
+  emEdicao = computed(() => this.editandoId() !== null);
+
   ngOnInit(): void {
     this.carregarCategorias();
   }
 
-  get emEdicao(): boolean {
-    return this.editandoId !== null;
-  }
-
   carregarCategorias(): void {
-    this.carregando = true;
-    this.erro = '';
+    this.carregando.set(true);
+    this.erro.set('');
 
     this.categoriaService.listarCategorias().subscribe({
       next: (categorias) => {
-        this.categorias = categorias;
-        this.carregando = false;
+        this.categorias.set(categorias);
+        this.carregando.set(false);
       },
       error: () => {
-        this.erro = 'Nao foi possivel carregar as categorias. Verifique se o json-server esta rodando.';
-        this.carregando = false;
+        this.erro.set('Nao foi possivel carregar as categorias. Verifique se o json-server esta rodando.');
+        this.carregando.set(false);
       }
     });
   }
@@ -65,8 +63,9 @@ export class CategoriasComponent implements OnInit {
       icone: this.categoriaForm.value.icone ?? '📦'
     };
 
-    const requisicao = this.emEdicao && this.editandoId !== null
-      ? this.categoriaService.atualizarCategoria(this.editandoId, categoria)
+    const id = this.editandoId();
+    const requisicao = this.emEdicao() && id !== null
+      ? this.categoriaService.atualizarCategoria(id, categoria)
       : this.categoriaService.adicionarCategoria(categoria);
 
     requisicao.subscribe({
@@ -75,14 +74,14 @@ export class CategoriasComponent implements OnInit {
         this.carregarCategorias();
       },
       error: () => {
-        this.erro = 'Nao foi possivel salvar a categoria.';
+        this.erro.set('Nao foi possivel salvar a categoria.');
       }
     });
   }
 
   editar(categoria: Categoria): void {
-    this.editandoId = categoria.id ?? null;
-    this.erro = '';
+    this.editandoId.set(categoria.id ?? null);
+    this.erro.set('');
     this.categoriaForm.patchValue({
       nome: categoria.nome,
       descricao: categoria.descricao,
@@ -102,20 +101,20 @@ export class CategoriasComponent implements OnInit {
 
     this.categoriaService.removerCategoria(categoria.id).subscribe({
       next: () => {
-        if (this.editandoId === categoria.id) {
+        if (this.editandoId() === categoria.id) {
           this.cancelarEdicao();
         }
         this.carregarCategorias();
       },
       error: () => {
-        this.erro = 'Nao foi possivel excluir a categoria.';
+        this.erro.set('Nao foi possivel excluir a categoria.');
       }
     });
   }
 
   cancelarEdicao(): void {
-    this.editandoId = null;
-    this.erro = '';
+    this.editandoId.set(null);
+    this.erro.set('');
     this.categoriaForm.reset({
       nome: '',
       descricao: '',

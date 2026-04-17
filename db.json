@@ -21,28 +21,16 @@
   ],
   "categorias": [
     {
-      "id": "1",
       "nome": "Lanches",
-      "descricao": "Hamburgueres, porcoes e combinados principais.",
-      "icone": "🍔"
+      "descricao": "Hamburgueres, porcões e combinados principais.",
+      "icone": "🍔",
+      "id": "1"
     },
     {
-      "id": "2",
       "nome": "Bebidas",
-      "descricao": "Refrigerantes, sucos e outras bebidas.",
-      "icone": "🥤"
-    },
-    {
-      "id": "3",
-      "nome": "Sobremesas",
-      "descricao": "Doces, bolos e sobremesas geladas.",
-      "icone": "🍰"
-    },
-    {
-      "nome": "Pizzas",
-      "descricao": "PIZZA",
-      "icone": "🍕",
-      "id": "GTltzRfSaH0"
+      "descricao": "Refrigerantes, sucos e outras bebidas mais.",
+      "icone": "🥤",
+      "id": "cvxug7-9j5g"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
