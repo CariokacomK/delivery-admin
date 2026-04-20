@@ -36,7 +36,9 @@ export class DashboardVendasComponent implements OnInit {
   }
 
   atualizarLista(): void {
-    this.vendas = this.vendaService.obterVendasDoDia();
+    this.vendaService.obterVendasDoDia().subscribe(vendas => {
+      this.vendas = vendas;
+    });
   }
 
   salvarVenda(): void {
@@ -52,17 +54,20 @@ export class DashboardVendasComponent implements OnInit {
             ...dadosForm,
             total
           };
-          this.vendaService.atualizarVenda(vendaAtualizada);
+          this.vendaService.atualizarVenda(vendaAtualizada).subscribe(() => {
+            this.resetarFormulario();
+            this.atualizarLista();
+          });
         }
       } else {
         this.vendaService.adicionarVenda({
           ...dadosForm,
           total
+        }).subscribe(() => {
+          this.resetarFormulario();
+          this.atualizarLista();
         });
       }
-
-      this.resetarFormulario();
-      this.atualizarLista();
     } else {
       this.vendaForm.markAllAsTouched();
     }
@@ -81,8 +86,9 @@ export class DashboardVendasComponent implements OnInit {
 
   excluirVenda(id: string): void {
     if (confirm('Tem certeza que deseja excluir esta venda?')) {
-      this.vendaService.removerVenda(id);
-      this.atualizarLista();
+      this.vendaService.removerVenda(id).subscribe(() => {
+        this.atualizarLista();
+      });
     }
   }
 
