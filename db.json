@@ -33,5 +33,52 @@
       "id": "cvxug7-9j5g"
     }
   ],
+  "vendas": [
+    {
+      "id": "1",
+      "nomeProduto": "X-Burguer Duplo",
+      "categoria": "Lanches",
+      "preco": 25,
+      "quantidade": 2,
+      "total": 50,
+      "dataHora": "2026-03-12T10:30:00.000Z"
+    },
+    {
+      "id": "2",
+      "nomeProduto": "Refrigerante 2L",
+      "categoria": "Bebidas",
+      "preco": 8.5,
+      "quantidade": 3,
+      "total": 25.5,
+      "dataHora": "2026-03-12T10:45:00.000Z"
+    },
+    {
+      "id": "3",
+      "nomeProduto": "Sorvete Sundae",
+      "categoria": "Sobremesas",
+      "preco": 12,
+      "quantidade": 1,
+      "total": 12,
+      "dataHora": "2026-03-12T11:15:00.000Z"
+    },
+    {
+      "id": "4",
+      "nomeProduto": "Pizza Grande",
+      "categoria": "Lanches",
+      "preco": 45,
+      "quantidade": 1,
+      "total": 45,
+      "dataHora": "2026-03-12T11:30:00.000Z"
+    },
+    {
+      "id": "5",
+      "nomeProduto": "Suco Natural",
+      "categoria": "Bebidas",
+      "preco": 7,
+      "quantidade": 2,
+      "total": 14,
+      "dataHora": "2026-03-12T12:00:00.000Z"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

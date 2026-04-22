@@ -1,62 +1,121 @@
 <div class="container mt-5">
-  <h2 class="mb-4">Vendas do Dia</h2>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">Vendas do Dia</h2>
+    <button class="btn btn-dark" (click)="mostrarFormulario = !mostrarFormulario">
+      {{ mostrarFormulario ? 'Fechar Formulário' : '+ Adicionar Venda' }}
+    </button>
+  </div>
+
+  <div class="card mb-4 shadow-sm" *ngIf="mostrarFormulario">
+    <div class="card-header bg-dark text-white">
+      <h5 class="mb-0">{{ editandoVendaId ? 'Editar Venda' : 'Nova Venda' }}</h5>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="vendaForm" (ngSubmit)="salvarVenda()">
+        <div class="row">
+          <div class="col-md-4 mb-3">
+            <label class="form-label">Produto *</label>
+            <input type="text" class="form-control" formControlName="nomeProduto" 
+                   [class.is-invalid]="vendaForm.get('nomeProduto')?.invalid && vendaForm.get('nomeProduto')?.touched">
+            <div class="invalid-feedback">O nome é obrigatório.</div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label class="form-label">Categoria *</label>
+            <select class="form-select" formControlName="categoria"
+                    [class.is-invalid]="vendaForm.get('categoria')?.invalid && vendaForm.get('categoria')?.touched">
+              <option value="" disabled selected>Selecione...</option>
+              <option value="Lanches">Lanches</option>
+              <option value="Bebidas">Bebidas</option>
+              <option value="Sobremesas">Sobremesas</option>
+            </select>
+            <div class="invalid-feedback">Selecione uma categoria.</div>
+          </div>
+          <div class="col-md-2 mb-3">
+            <label class="form-label">Preço (R$) *</label>
+            <input type="number" class="form-control" formControlName="preco"
+                   [class.is-invalid]="vendaForm.get('preco')?.invalid && vendaForm.get('preco')?.touched">
+          </div>
+          <div class="col-md-1 mb-3">
+            <label class="form-label">Qtd *</label>
+            <input type="number" class="form-control" formControlName="quantidade"
+                   [class.is-invalid]="vendaForm.get('quantidade')?.invalid && vendaForm.get('quantidade')?.touched">
+          </div>
+          <div class="col-md-2 mb-3 d-flex align-items-end gap-2">
+            <button type="submit" class="btn btn-primary w-100">Salvar</button>
+            <button type="button" class="btn btn-outline-secondary" (click)="resetarFormulario()">Limpar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <div class="row mb-4">
     <div class="col-md-4">
-      <div class="card">
+      <div class="card border-0 shadow-sm h-100">
         <div class="card-body">
-          <h5 class="card-title">Total</h5>
-          <h3 class="text-success">{{ formatarValor(calcularTotal()) }}</h3>
+          <h6 class="text-muted text-uppercase fw-bold mb-2">Total</h6>
+          <h3 class="text-success mb-0">{{ formatarValor(calcularTotal()) }}</h3>
         </div>
       </div>
     </div>
     <div class="col-md-4">
-      <div class="card">
+      <div class="card border-0 shadow-sm h-100">
         <div class="card-body">
-          <h5 class="card-title">Quantidade</h5>
-          <h3 class="text-primary">{{ calcularQuantidade() }}</h3>
+          <h6 class="text-muted text-uppercase fw-bold mb-2">Quantidade</h6>
+          <h3 class="text-primary mb-0">{{ calcularQuantidade() }}</h3>
         </div>
       </div>
     </div>
     <div class="col-md-4">
-      <div class="card">
+      <div class="card border-0 shadow-sm h-100">
         <div class="card-body">
-          <h5 class="card-title">Ticket Médio</h5>
-          <h3 class="text-info">{{ formatarValor(calcularTicketMedio()) }}</h3>
+          <h6 class="text-muted text-uppercase fw-bold mb-2">Ticket Médio</h6>
+          <h3 class="text-info mb-0">{{ formatarValor(calcularTicketMedio()) }}</h3>
         </div>
       </div>
     </div>
   </div>
 
-
-  <div class="card">
-    <div class="card-header bg-dark text-white">
+  <div class="card shadow-sm">
+    <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
       <h5 class="mb-0">Tabela de Vendas</h5>
+      <span class="badge bg-light text-dark">{{ vendas.length }} itens</span>
     </div>
-    <div class="card-body">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Produto</th>
-            <th>Categoria</th>
-            <th>Preço</th>
-            <th>Qtd</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngIf="vendas.length === 0">
-            <td colspan="5" class="text-center text-muted">Sem vendas</td>
-          </tr>
-          <tr *ngFor="let venda of vendas">
-            <td>{{ venda.nomeProduto }}</td>
-            <td>{{ venda.categoria }}</td>
-            <td>{{ formatarValor(venda.preco) }}</td>
-            <td>{{ venda.quantidade }}</td>
-            <td class="fw-bold text-success">{{ formatarValor(venda.total) }}</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Produto</th>
+              <th>Categoria</th>
+              <th class="text-end">Preço</th>
+              <th class="text-center">Qtd</th>
+              <th class="text-end">Total</th>
+              <th class="text-center">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="vendas.length === 0">
+              <td colspan="6" class="text-center py-4 text-muted">Nenhuma venda registrada hoje</td>
+            </tr>
+            <tr *ngFor="let venda of vendas">
+              <td>{{ venda.nomeProduto }}</td>
+              <td><span class="badge bg-secondary">{{ venda.categoria }}</span></td>
+              <td class="text-end">{{ formatarValor(venda.preco) }}</td>
+              <td class="text-center">{{ venda.quantidade }}</td>
+              <td class="fw-bold text-success text-end">{{ formatarValor(venda.total) }}</td>
+              <td class="text-center">
+                <button class="btn btn-sm btn-outline-primary me-2" (click)="editarVenda(venda)">
+                  Editar
+                </button>
+                <button class="btn btn-sm btn-outline-danger" (click)="excluirVenda(venda.id)">
+                  Excluir
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
