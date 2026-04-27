@@ -1,31 +1,70 @@
-<div class="container mt-5">
-  <h1>Menu</h1>
-
-  <div class="mb-3">
-    <button 
-      *ngFor="let categoria of categorias" 
-      class="btn btn-sm me-2"
-      [ngClass]="categoriaSelecionada === categoria ? 'btn-primary' : 'btn-outline-primary'"
-      (click)="selecionarCategoria(categoria)">
-      {{ categoria }}
+<div class="container py-5">
+  
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold">Nosso Cardápio 🍽️</h2>
+    <button class="btn btn-orange text-white fw-bold" (click)="exibirModal = true" style="background-color: #ff5722;">
+      + Novo Item
     </button>
   </div>
 
-  <div>
-    <div 
-      *ngFor="let produto of filtrarProdutos()"
-      class="border p-3 mb-3">
-      
-      <h5>{{ produto.nome }}</h5>
-      <p class="text-muted">{{ produto.categoria }}</p>
-      <p>{{ produto.descricao }}</p>
-      <p><strong>R$ {{ produto.preco.toFixed(2) }}</strong></p>
+  <div class="mb-4 d-flex gap-2 overflow-auto">
+    <button *ngFor="let cat of categorias" 
+            (click)="filtro = cat"
+            class="btn btn-sm rounded-pill px-4 fw-bold"
+            [ngClass]="filtro === cat ? 'btn-primary' : 'btn-outline-primary'">
+      {{ cat }}
+    </button>
+  </div>
 
-      <div>
-        <button class="btn btn-sm btn-dark" (click)="menos(produto)">−</button>
-        <span class="mx-2">{{ produto.quantidade }}</span>
-        <button class="btn btn-sm btn-dark" (click)="mais(produto)">+</button>
+  <div class="row">
+    <div *ngFor="let p of produtosFiltrados; let i = index" class="col-md-6 col-lg-4 mb-4">
+      <div class="card h-100 border-0 shadow-sm p-3">
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <span class="badge bg-light text-dark border mb-2">{{ p.categoria }}</span>
+            <h5 class="fw-bold mb-1">{{ p.nome }}</h5>
+            <p class="text-muted small mb-3">{{ p.descricao || 'O melhor sabor da região.' }}</p>
+            <h6 class="text-success fw-bold">R$ {{ p.preco.toFixed(2) }}</h6>
+          </div>
+          
+          <div class="d-flex flex-column gap-2">
+            <button class="btn btn-light btn-sm text-primary border" (click)="editar(i)">Editar</button>
+            <button class="btn btn-light btn-sm text-danger border" (click)="excluir(i)">Excluir</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
+  <div *ngIf="exibirModal" class="position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" 
+       style="background: rgba(0,0,0,0.6); z-index: 1050;">
+    <div class="card p-4 shadow-lg border-0" style="width: 100%; max-width: 400px; border-radius: 15px;">
+      <h4 class="fw-bold mb-3">{{ indexEditando !== null ? 'Alterar Item' : 'Novo Item' }}</h4>
+      
+      <div class="mb-2">
+        <label class="small fw-bold">Nome</label>
+        <input type="text" [(ngModel)]="item.nome" class="form-control">
+      </div>
+
+      <div class="mb-2">
+        <label class="small fw-bold">Categoria</label>
+        <select [(ngModel)]="item.categoria" class="form-select">
+          <option value="Lanches">Lanches</option>
+          <option value="Bebidas">Bebidas</option>
+          <option value="Sobremesas">Sobremesas</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="small fw-bold">Preço</label>
+        <input type="number" [(ngModel)]="item.preco" class="form-control">
+      </div>
+
+      <div class="d-flex gap-2">
+        <button class="btn btn-primary w-100 fw-bold" (click)="salvar()">Salvar</button>
+        <button class="btn btn-light w-100 border fw-bold" (click)="fecharModal()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
 </div>
